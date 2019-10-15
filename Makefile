@@ -4,7 +4,7 @@ Image := debian10-std.qcow2
 InstallDisc := /home/zqy/Software/debian-live-10.0.0-amd64-standard.iso
 #Port should be [10, 99]
 #the vnc port is 59$(Port), the ssh port is 100$(Port)
-Port := 11
+Port := 10
 
 
 .PHONY: run install vnc ssh env
@@ -30,7 +30,7 @@ vnc:
 	vncviewer localhost:59$(Port)
 
 ssh:
-	ssh localhost -p 100$(Port)
+	ssh zqy@localhost -p 100$(Port)
 
 
 install: $(Image)
