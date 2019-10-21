@@ -21,7 +21,7 @@ run_native:
 	-no-user-config \
 	-enable-kvm \
 	-m 4G -mem-prealloc \
-	-cpu host -smp sockets=2,cores=4,threads=1 \
+	-cpu host -smp sockets=1,cores=4,threads=2 \
 	-drive file=$(ROOT_IMAGE),format=qcow2,if=none,id=drive0 \
 	-device virtio-blk-pci,drive=drive0 \
 	-netdev user,id=vnet,hostfwd=:0.0.0.0:100$(PORT)-:22 \
@@ -51,13 +51,13 @@ run_kernel:
 	-vnc :$(PORT)
 
 
-install: $(Image)
+install: $(ROOT_IMAGE)
 	sudo qemu-system-x86_64 \
 	-M pc -name "debian10-std" \
 	-no-user-config \
 	-enable-kvm \
 	-m 4G -mem-prealloc \
-	-cpu host -smp sockets=2,cores=4,threads=1 \
+	-cpu host -smp sockets=1,cores=4,threads=2 \
 	-cdrom /home/zqy/Software/debian-live-10.0.0-amd64-standard.iso \
 	-drive file=$(ROOT_IMAGE),format=qcow2,if=none,id=drive0 \
 	-device virtio-blk-pci,drive=drive0,id=drive0-dev,bootindex=1 \
