@@ -3,12 +3,12 @@
 
 KERNEL := boot/vmlinuz-4.19.0-5-amd64
 INITRD := boot/initrd.img-4.19.0-5-amd64
-ROOT_IMAGE := debian10-std.qcow2
+ROOT_IMAGE := debian8-std.qcow2
 ROOT_DIR := root
-INSTALL_IMAGE := /home/zqy/Software/debian-live-10.0.0-amd64-standard.iso
+INSTALL_IMAGE := /home/zqy/Software/debian-8.10.0-amd64-netinst.iso
 #Port should be [10, 99]
 #the vnc port is 59$(Port), the ssh port is 100$(Port)
-PORT:= 10
+PORT:= 20
 
 
 .PHONY: run install vnc ssh env
@@ -58,7 +58,7 @@ install: $(ROOT_IMAGE)
 	-enable-kvm \
 	-m 8G -mem-prealloc \
 	-cpu host -smp sockets=1,cores=4,threads=2 \
-	-cdrom /home/zqy/Software/debian-live-10.0.0-amd64-standard.iso \
+	-cdrom $(INSTALL_IMAGE) \
 	-drive file=$(ROOT_IMAGE),format=qcow2,if=none,id=drive0 \
 	-device virtio-blk-pci,drive=drive0,id=drive0-dev,bootindex=1 \
 	-netdev user,id=vnet,hostfwd=:0.0.0.0:100$(PORT)-:22 \
