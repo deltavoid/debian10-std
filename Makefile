@@ -3,12 +3,12 @@
 
 KERNEL := boot/vmlinuz-4.19.0-5-amd64
 INITRD := boot/initrd.img-4.19.0-5-amd64
-ROOT_IMAGE := debian8-std.qcow2
+ROOT_IMAGE := debian10-std.qcow2
 ROOT_DIR := root
-INSTALL_IMAGE := /home/zqy/Software/debian-8.10.0-amd64-netinst.iso
+INSTALL_IMAGE := /home/zqy/Software/debian-10.1.0-amd64-netinst.iso
 #Port should be [10, 99]
 #the vnc port is 59$(Port), the ssh port is 100$(Port)
-PORT:= 20
+PORT:= 10
 
 
 .PHONY: run install vnc ssh env
