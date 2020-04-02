@@ -30,6 +30,23 @@ run_native:
 	-device virtio-net,netdev=net1,mac=5a:e0:f0:25:d1:$(PORT) \
 	-nographic \
 	-vnc :$(PORT) 
+	
+run_nohup:
+	sudo nohup qemu-system-x86_64 \
+	-M pc \
+	-no-user-config \
+	-enable-kvm \
+	-m 8G -mem-prealloc \
+	-cpu host -smp sockets=1,cores=4,threads=2 \
+	-drive file=$(ROOT_IMAGE),format=qcow2,if=none,id=drive0 \
+	-device virtio-blk-pci,drive=drive0 \
+	-netdev user,id=net0,hostfwd=:0.0.0.0:100$(PORT)-:22 \
+	-device virtio-net-pci,netdev=net0 \
+	-netdev tap,id=net1,ifname=tap$(PORT),script=no,downscript=no,vhost=on \
+	-device virtio-net,netdev=net1,mac=5a:e0:f0:25:d1:$(PORT) \
+	-nographic \
+	-vnc :$(PORT) \
+    & 
 
 vnc:
 	vncviewer localhost:59$(PORT)

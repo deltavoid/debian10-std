@@ -5,3 +5,5 @@ debian8-std.qcow2
 
 root
 boot
+
+nohup.out
